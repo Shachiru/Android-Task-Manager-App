@@ -1,9 +1,27 @@
+import { useAuth } from "@/context/AuthContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Tabs } from "expo-router";
-import React from "react";
-import { View } from "react-native";
+import { Tabs, useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 
 const DashboardLayout = () => {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading]);
+
+  if (loading) {
+    return (
+      <View className="flex-1 w-full justify-center align-items-center">
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <Tabs
       screenOptions={{
