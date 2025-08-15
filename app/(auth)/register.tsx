@@ -12,7 +12,7 @@ const Register = () => {
         className="bg-blue-500 px-5 py-3"
         onPress={() => router.back()}
       >
-        <Text className="text-4xl text-center">Go to Login</Text>
+        <Text className="text-2xl text-center">Go to Login</Text>
       </Pressable>
     </View>
   );
