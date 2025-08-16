@@ -13,3 +13,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+
+// https://689f09433fed484cf878cfa6.mockapi.io/api/v1/task
