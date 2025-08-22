@@ -1,13 +1,29 @@
-import { useLocalSearchParams } from "expo-router";
+import { createTask } from "@/services/taskService";
+import { router, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const TaskFormScreen = () => {
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isNew = !id || id === "new";
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const handleSubmit = async () => {};
+
+  const handleSubmit = async () => {
+    if (!title.trim) {
+      Alert.alert("Validations", "Title is required!");
+      return;
+    }
+    try {
+      if (isNew) {
+        await createTask({ title, description });
+      }
+      router.back();
+    } catch (err) {
+      console.error("Error saving task:", err);
+      Alert.alert("Error", "Failed to save task. Please try again.");
+    }
+  };
 
   return (
     <View className="flex-1 bg-white">
